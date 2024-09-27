@@ -4,7 +4,8 @@
     "dependencies": {
         "core": "*",
         "radio": "*",
-        "microphone": "*"
+        "microphone": "*",
+        "EPXDisplay": "github:microsoft/expressivepixelsmakecode#v1.3.5"
     },
     "files": [
         "main.blocks",

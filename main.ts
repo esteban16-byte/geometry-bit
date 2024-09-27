@@ -1,25 +1,21 @@
-function transcision () {
-    basic.showIcon(IconNames.Square)
-    basic.pause(200)
-    basic.showIcon(IconNames.SmallSquare)
-    basic.pause(200)
-    basic.showLeds(`
-        . . . . .
-        . . . . .
-        . . # . .
-        . . . . .
-        . . . . .
-        `)
-    basic.pause(200)
-    basic.clearScreen()
-}
-// Manejamos las pulsaciones de los botones con eventos
 input.onButtonPressed(Button.A, function () {
     if (nivel == 0) {
-        // Avanzar al siguiente nivel
+        // Ejecutar transición cuando salimos del nivel 0
+        transicionEntreNiveles()
         nivel += 1
     } else {
-        // Incrementar nivel
+        basic.clearScreen()
+        basic.pause(20)
+        nivel += 0 - 1
+        if (nivel < 1) {
+            nivel = 3
+        }
+    }
+})
+input.onButtonPressed(Button.B, function () {
+    if (nivel > 0) {
+        basic.clearScreen()
+        basic.pause(20)
         nivel += 1
         if (nivel >= 4) {
             // Reiniciar el nivel si es mayor que 3
@@ -27,7 +23,24 @@ input.onButtonPressed(Button.A, function () {
         }
     }
 })
-function for_cambio_nivel () {
+function transicionEntreNiveles () {
+    // Mostrar una animación de transición con LEDs
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . # . .
+        . . . . .
+        . . . . .
+        `)
+    basic.pause(100)
+    basic.showLeds(`
+        . . . . .
+        . # # # .
+        . # # # .
+        . # # # .
+        . . . . .
+        `)
+    basic.pause(100)
     basic.showLeds(`
         # # # # #
         # # # # #
@@ -35,55 +48,13 @@ function for_cambio_nivel () {
         # # # # #
         # # # # #
         `)
-    basic.pause(120)
-    basic.showLeds(`
-        . . . . .
-        # # # # #
-        # # # # #
-        # # # # #
-        # # # # #
-        `)
-    basic.pause(120)
-    basic.showLeds(`
-        . . . . .
-        . . . . .
-        # # # # #
-        # # # # #
-        # # # # #
-        `)
-    basic.pause(120)
-    basic.showLeds(`
-        . . . . .
-        . . . . .
-        . . . . .
-        # # # # #
-        # # # # #
-        `)
-    basic.pause(120)
-    basic.showLeds(`
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        # # # # #
-        `)
-    basic.pause(120)
+    basic.pause(100)
     basic.clearScreen()
 }
-input.onButtonPressed(Button.B, function () {
-    if (nivel > 0) {
-        // Decrementar nivel si estamos por encima de 0
-        nivel += 0 - 1
-        if (nivel < 1) {
-            // Volver al nivel 3 si baja de 1
-            nivel = 3
-        }
-    }
-})
 let nivel = 0
 nivel = 0
+// Mostrar un mensaje inicial
 basic.showString("Geometry:bit")
-// Mostrar el primer patrón de LEDs
 basic.showLeds(`
     . # # . .
     . # # # .
@@ -91,18 +62,37 @@ basic.showLeds(`
     . # # # .
     . # # . .
     `)
-basic.pause(50)
-// Mostrar el número de nivel según el estado
+// Mostrar el número o el nombre del nivel
 basic.forever(function () {
     if (nivel > 0) {
-        // Pausa para evitar cambios rápidos
         basic.pause(200)
         if (nivel == 1) {
-            basic.showString("stereo madness")
+            basic.clearScreen()
+            basic.showLeds(`
+                # # . # .
+                # . # # #
+                . # . # .
+                # # . # .
+                . . . . .
+                `)
         } else if (nivel == 2) {
-            basic.showString("back on track")
+            basic.clearScreen()
+            basic.showLeds(`
+                # . # # .
+                # . # # .
+                # # . # .
+                # # . # .
+                . . . . .
+                `)
         } else if (nivel == 3) {
-            basic.showString("polargeist")
+            basic.clearScreen()
+            basic.showLeds(`
+                # # . # #
+                # # . # #
+                # . . # #
+                # . . . .
+                . . . . .
+                `)
         }
     }
 })
